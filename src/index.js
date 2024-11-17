@@ -2,7 +2,6 @@
 import "./style.css";
 
 const dropDowns = document.querySelectorAll(".dropdown");
-// const dropDownHover = document.querySelector(".dropdown-hover");
 
 const addDropdowntoBtn = (e) => {
   e.target.nextElementSibling.classList.toggle("visible");

@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dropdown menus</title>
     <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/cb8705c014.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <header>
@@ -15,7 +19,7 @@
       <div class="dropdown-container">
         <div class="dropdown">
           <button class="btn">Click Me</button>
-          <ul>
+          <ul class="dropdown-menu">
             <li><a href="">Hello 👋, I’m a dropdown</a></li>
             <li><a href="">Menu option 1</a></li>
             <li><a href="">Option 2</a></li>
@@ -23,7 +27,7 @@
         </div>
         <div class="dropdown">
           <button class="btn hover">Hover me!</button>
-          <ul>
+          <ul class="dropdown-menu">
             <li><a href="">I’m a hover dropdown</a></li>
             <li><a href="">Click on me to close ❌</a></li>
             <li><a href="">Another option </a></li>
@@ -33,6 +37,27 @@
     </section>
     <section>
       <h2>Mobile menus</h2>
+      <div class="mobile-container">
+        <div class="screen">
+          <div class="nav-bar">
+            <div class="title">Expand Down</div>
+            <a href="#" class="nav-icon"><i class="fa-solid fa-bars"></i></a>
+            <ul class="nav-menu visible">
+              <li>
+                <a href="#"><i class="fa-solid fa-house"></i>Home</a>
+              </li>
+              <li>
+                <a href="#"><i class="fa-solid fa-phone"></i>Contact</a>
+              </li>
+              <li>
+                <a href="#"><i class="fa-solid fa-address-card"></i>About</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="screen"></div>
+        <div class="screen"></div>
+      </div>
     </section>
     <section>
       <h2>Image carousel</h2>
