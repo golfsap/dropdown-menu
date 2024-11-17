@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Poppins&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+:root {
+  --clr-very-dark: #0d1321;
+  --clr-dark-blue: #1d2d44;
+  --clr-med-blue: #3e5c76;
+  --clr-light-blue: #748cab;
+  --clr-light-white: #f0ebd8;
+  --font-family: "Roboto", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* background-color: var(--clr-light-white); */
+  font-family: var(--font-family);
+  display: flex;
+  flex-direction: column;
+  color: var(--clr-very-dark);
+}
+
+body section {
+  border: 1px solid black;
+  padding: 20px 10px;
+}
+
+header {
+  width: 100%;
+  height: 100px;
+  background-color: var(--clr-med-blue);
+  color: var(--clr-light-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  font-weight: 400;
+}
+
+h2 {
+  font-weight: 300;
+}
+
+.btn {
+  padding: 11px 20px;
+  background-color: var(--clr-med-blue);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.dropdown-container {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.visible {
+  visibility: visible;
+  border: 1px solid black;
+}
+
+ul li {
+  list-style: none;
+  font-size: 13px;
+  padding: 5px;
+  cursor: pointer;
+  border: 1px solid var(--clr-dark-blue);
+}
+
+ul {
+  visibility: hidden;
+  position: absolute;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  /* background-color: var(--clr-light-white); */
+}
+
+ul a {
+  text-decoration: none;
+}
