@@ -3,7 +3,7 @@ import "./style.css";
 import MobileMenu from "./mobile-menu";
 
 const dropDowns = document.querySelectorAll(".dropdown");
-const navMenus = document.querySelector(".nav-icon");
+const navMenus = document.querySelectorAll(".nav-icon");
 
 const mobileMenu = MobileMenu();
 
@@ -35,7 +35,11 @@ for (let i = 0; i < dropDowns.length; i++) {
   }
 }
 
-navMenus.addEventListener("click", mobileMenu.addDropDownMenu);
+navMenus.forEach((menu) => {
+  menu.addEventListener("click", mobileMenu.addDropDownMenu);
+});
+
+// navMenus.addEventListener("click", mobileMenu.addDropDownMenu);
 
 // navMenus.forEach((menu) => {
 //   menu.addEventListener("click", mobileMenu.addDropDownMenu());
