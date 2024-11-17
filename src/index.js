@@ -1,7 +1,11 @@
 // Load CSS
 import "./style.css";
+import MobileMenu from "./mobile-menu";
 
 const dropDowns = document.querySelectorAll(".dropdown");
+const navMenus = document.querySelector(".nav-icon");
+
+const mobileMenu = MobileMenu();
 
 const addDropdowntoBtn = (e) => {
   e.target.nextElementSibling.classList.toggle("visible");
@@ -31,12 +35,8 @@ for (let i = 0; i < dropDowns.length; i++) {
   }
 }
 
-// dropDownBtn.addEventListener("click", addDropdowntoBtn);
+navMenus.addEventListener("click", mobileMenu.addDropDownMenu);
 
-// dropDownHover.addEventListener("mouseenter", (e) => {
-//   console.log(e.currentTarget.firstElementChild.nextElementSibling);
-//   e.currentTarget.firstElementChild.nextElementSibling.classList.toggle(
-//     "visible"
-//   );
-//   // e.target.nextElementSibling.classList.toggle("visible");
+// navMenus.forEach((menu) => {
+//   menu.addEventListener("click", mobileMenu.addDropDownMenu());
 // });
