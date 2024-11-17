@@ -4,6 +4,7 @@ import MobileMenu from "./mobile-menu";
 
 const dropDowns = document.querySelectorAll(".dropdown");
 const navMenus = document.querySelectorAll(".nav-icon");
+const navBar = document.querySelector(".nav").querySelectorAll("li");
 
 const mobileMenu = MobileMenu();
 
@@ -39,8 +40,6 @@ navMenus.forEach((menu) => {
   menu.addEventListener("click", mobileMenu.addDropDownMenu);
 });
 
-// navMenus.addEventListener("click", mobileMenu.addDropDownMenu);
-
-// navMenus.forEach((menu) => {
-//   menu.addEventListener("click", mobileMenu.addDropDownMenu());
-// });
+navBar.forEach((item) => {
+  item.addEventListener("click", mobileMenu.addNavMenu);
+});
