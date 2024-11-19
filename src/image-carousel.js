@@ -1,4 +1,8 @@
-export default function JSCarousel({ carouselSelector, slideSelector }) {
+export default function JSCarousel({
+  carouselSelector,
+  slideSelector,
+  enablePagination = true,
+}) {
   const carousel = document.querySelector(carouselSelector);
   if (!carousel) {
     console.error("Specify a valid selector for the carousel.");
@@ -13,6 +17,7 @@ export default function JSCarousel({ carouselSelector, slideSelector }) {
 
   let currentSlideIndex = 0;
   let prevButton, nextButton;
+  let paginationContainer;
 
   // Helper utilities functions
   const addElement = (tag, attributes, children) => {
@@ -48,11 +53,43 @@ export default function JSCarousel({ carouselSelector, slideSelector }) {
       class: "carousel-inner",
     });
     carousel.insertBefore(carouselInner, slides[0]);
+
+    // Add pagination container if pagination is enabled
+    if (enablePagination) {
+      paginationContainer = addElement("nav", {
+        class: "carousel-pagination",
+        role: "tablist",
+      });
+      carousel.appendChild(paginationContainer);
+    }
+
     // move slides into the inner element and rearrange
     slides.forEach((slide, index) => {
       carouselInner.appendChild(slide);
       slide.style.transform = `translateX(${index * 100}%)`;
+      if (enablePagination) {
+        const paginationButton = addElement(
+          "button",
+          {
+            class: `carousel-btn carousel-btn--${index + 1}`,
+            role: "tab",
+          },
+          `Slide ${index + 1}`
+        );
+
+        paginationContainer.appendChild(paginationButton);
+
+        if (index === 0) {
+          paginationButton.classList.add("carousel-btn-active");
+          paginationButton.setAttribute("aria-selected", true);
+        }
+
+        paginationButton.addEventListener("click", () => {
+          handlePaginationBtnClick(index);
+        });
+      }
     });
+
     prevButton = addElement(
       "button",
       {
@@ -78,7 +115,27 @@ export default function JSCarousel({ carouselSelector, slideSelector }) {
     });
   };
 
+  const updatePaginationBtns = () => {
+    const btns = paginationContainer.children;
+    const prevActiveBtns = Array.from(btns).filter((btn) =>
+      btn.classList.contains("carousel-btn--active")
+    );
+    const currentActiveBtn = btns[currentSlideIndex];
+
+    prevActiveBtns.forEach((btn) => {
+      btn.classList.remove("carousel-btn--active");
+      btn.removeAttribute("aria-selected");
+    });
+    if (currentActiveBtn) {
+      currentActiveBtn.classList.add("carousel-btn--active");
+      currentActiveBtn.setAttribute("aria-selected", true);
+    }
+  };
+
   const updateCarouselState = () => {
+    if (enablePagination) {
+      updatePaginationBtns();
+    }
     adjustSlidePosition();
   };
 
@@ -101,6 +158,11 @@ export default function JSCarousel({ carouselSelector, slideSelector }) {
     nextButton.addEventListener("click", handleNextButtonClick);
   };
 
+  const handlePaginationBtnClick = (index) => {
+    currentSlideIndex = index;
+    updateCarouselState();
+  };
+
   const create = () => {
     tweakStructure();
     attachEventListeners();
@@ -109,6 +171,15 @@ export default function JSCarousel({ carouselSelector, slideSelector }) {
   const destroy = () => {
     prevButton.removeEventListener("click", handlePrevButtonClick);
     nextButton.removeEventListener("click", handleNextButtonClick);
+    if (enablePagination) {
+      const paginationBtns =
+        paginationContainer.querySelectorAll(".carousel-btn");
+      if (paginationBtns.length) {
+        paginationBtns.forEach((btn) => {
+          btn.removeEventListener("click", handlePaginationBtnClick);
+        });
+      }
+    }
   };
 
   return { create, destroy };
