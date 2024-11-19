@@ -1,6 +1,7 @@
 // Load CSS
 import "./style.css";
 import MobileMenu from "./mobile-menu";
+import JSCarousel from "./image-carousel";
 
 // Dropdown Buttons
 const dropDowns = document.querySelectorAll(".dropdown");
@@ -48,48 +49,60 @@ navBar.forEach((item) => {
 });
 
 // Image carousel
-const prevBtn = document.getElementById("prev-btn");
-const nextBtn = document.getElementById("next-btn");
+const carousel1 = JSCarousel({
+  carouselSelector: "#carousel-1",
+  slideSelector: ".slide",
+});
 
-nextBtn.addEventListener("click", showNextImage);
-prevBtn.addEventListener("click", showPrevImage);
+carousel1.create();
 
-const images = Array.from(document.getElementsByClassName("carousel-img"));
-const totalImages = images.length;
-let currentImgIndex = 0;
+// Cleanup
+window.addEventListener("unload", () => {
+  carousel1.destroy();
+});
 
-function addTransitionEffectToImages() {
-  images.forEach((img) => {
-    img.style.transition = "transform 0.8s ease";
-  });
-}
+// const prevBtn = document.getElementById("prev-btn");
+// const nextBtn = document.getElementById("next-btn");
 
-function showNextImage() {
-  if (currentImgIndex == totalImages - 1) {
-    resetCarousel();
-    return;
-  }
-  if (currentImgIndex === 0) addTransitionEffectToImages();
-  images.forEach((img) => {
-    img.style.transform = `translate(${(currentImgIndex + 1) * 100}%)`;
-  });
-  currentImgIndex++;
-}
+// nextBtn.addEventListener("click", showNextImage);
+// prevBtn.addEventListener("click", showPrevImage);
 
-function resetCarousel() {
-  images.forEach((img) => {
-    img.style.transition = "none";
-    img.style.transform = "translate(0)";
-  });
-  currentImgIndex = 0;
-}
+// const images = Array.from(document.getElementsByClassName("carousel-img"));
+// const totalImages = images.length;
+// let currentImgIndex = 0;
 
-function showPrevImage() {
-  if (currentImgIndex === 0) {
-    return;
-  }
-  images.forEach((img) => {
-    img.style.transform = `translate(${(currentImgIndex - 1) * -100}%)`;
-  });
-  currentImgIndex--;
-}
+// function addTransitionEffectToImages() {
+//   images.forEach((img) => {
+//     img.style.transition = "transform 0.8s ease";
+//   });
+// }
+
+// function showNextImage() {
+//   if (currentImgIndex == totalImages - 1) {
+//     resetCarousel();
+//     return;
+//   }
+//   if (currentImgIndex === 0) addTransitionEffectToImages();
+//   images.forEach((img) => {
+//     img.style.transform = `translate(${(currentImgIndex + 1) * 100}%)`;
+//   });
+//   currentImgIndex++;
+// }
+
+// function resetCarousel() {
+//   images.forEach((img) => {
+//     img.style.transition = "none";
+//     img.style.transform = "translate(0)";
+//   });
+//   currentImgIndex = 0;
+// }
+
+// function showPrevImage() {
+//   if (currentImgIndex === 0) {
+//     return;
+//   }
+//   images.forEach((img) => {
+//     img.style.transform = `translate(${(currentImgIndex - 1) * -100}%)`;
+//   });
+//   currentImgIndex--;
+// }
