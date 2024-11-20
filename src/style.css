@@ -277,6 +277,20 @@ img {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  border: none;
+  border-radius: 50%;
+  background-color: var(--clr-light-blue);
+  color: var(--clr-light-white);
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.carousel-btn--prev-next:hover {
+  transform: translateY(-50%) scale(1.2);
 }
 
 .carousel-btn--prev {
@@ -288,4 +302,27 @@ img {
 
 #carousel-1 {
   margin-top: 20px;
+}
+
+.carousel-pagination {
+  display: flex;
+  gap: 0.75em;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.carousel-pagination .carousel-btn {
+  background-color: #aaa;
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 50%;
+  color: transparent;
+  transition:
+    transform 0.25s,
+    background-color 0.25s ease-in-out;
+}
+
+.carousel-pagination .carousel-btn--active {
+  background-color: #333;
+  transform: scale(1.5);
 }
