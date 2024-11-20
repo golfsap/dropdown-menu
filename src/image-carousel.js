@@ -2,6 +2,8 @@ export default function JSCarousel({
   carouselSelector,
   slideSelector,
   enablePagination = true,
+  enableAutoplay = true,
+  autoplayInterval = 2000,
 }) {
   const carousel = document.querySelector(carouselSelector);
   if (!carousel) {
@@ -18,6 +20,7 @@ export default function JSCarousel({
   let currentSlideIndex = 0;
   let prevButton, nextButton;
   let paginationContainer;
+  let autoplayTimer;
 
   // Helper utilities functions
   const addElement = (tag, attributes, children) => {
@@ -74,13 +77,13 @@ export default function JSCarousel({
             class: `carousel-btn carousel-btn--${index + 1}`,
             role: "tab",
           },
-          `Slide ${index + 1}`
+          `${index + 1}`
         );
 
         paginationContainer.appendChild(paginationButton);
 
         if (index === 0) {
-          paginationButton.classList.add("carousel-btn-active");
+          paginationButton.classList.add("carousel-btn--active");
           paginationButton.setAttribute("aria-selected", true);
         }
 
@@ -152,10 +155,24 @@ export default function JSCarousel({
   const handlePrevButtonClick = () => moveSlide("prev");
   const handleNextButtonClick = () => moveSlide("next");
 
+  const startAutoplay = () => {
+    autoplayTimer = setInterval(() => {
+      moveSlide("next");
+    }, autoplayInterval);
+  };
+
+  const stopAutoplay = () => clearInterval(autoplayTimer);
+  const handleMouseEnter = () => stopAutoplay();
+  const handleMouseLeave = () => startAutoplay();
+
   // Attach event listeners
   const attachEventListeners = () => {
     prevButton.addEventListener("click", handlePrevButtonClick);
     nextButton.addEventListener("click", handleNextButtonClick);
+    if (enableAutoplay && autoplayInterval !== null) {
+      carousel.addEventListener("mouseenter", handleMouseEnter);
+      carousel.addEventListener("mouseleave", handleMouseLeave);
+    }
   };
 
   const handlePaginationBtnClick = (index) => {
@@ -166,6 +183,9 @@ export default function JSCarousel({
   const create = () => {
     tweakStructure();
     attachEventListeners();
+    if (enableAutoplay && autoplayInterval !== null) {
+      startAutoplay();
+    }
   };
 
   const destroy = () => {
@@ -179,6 +199,11 @@ export default function JSCarousel({
           btn.removeEventListener("click", handlePaginationBtnClick);
         });
       }
+    }
+    if (enableAutoplay && autoplayInterval !== null) {
+      carousel.removeEventListener("mouseenter", handleMouseEnter);
+      carousel.removeEventListener("mouseleave", handleMouseLeave);
+      stopAutoplay();
     }
   };
 
